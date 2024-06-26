@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      .section-title {
+        font-weight: bold;
+        font-size: 1.2rem;
+      }
+      .title-border {
+        border-left-width: 8px;
+        border-left-color: white;
+        padding-left: 8px;
+      }
+    </style>
+    <title>이력서 UI</title>
+  </head>
+  <body>
+    <div class="max-w-2xl bg-slate-100 m-auto">
+      <!-- 헤더 -->
+      <header class="flex gap-6 justify-between items-center p-5 pt-20">
+        <figure class="w-[40%]">
+          <img
+            src="/html/src/LiCat.png"
+            alt="프로필사진"
+            class="rounded-full border border-black w-40 h-40 object-cover m-auto"
+          />
+        </figure>
+        <!-- 이름 타이틀 -->
+        <div class="border-b border-black w-[60%] pb-4">
+          <h1 class="text-2xl">RACIB FERGUSON</h1>
+          <p>Graphic Designer</p>
+        </div>
+      </header>
+
+      <!-- 메인컨텐츠 -->
+      <main class="flex gap-4">
+        <!-- 개인정보 -->
+        <aside
+          class="bg-slate-600 w-[40%] h-full flex flex-col gap-8 p-5 text-white"
+        >
+          <div>
+            <h2 class="section-title title-border">IN BRIEF</h2>
+            <p>내용</p>
+          </div>
+          <div>
+            <h2 class="section-title title-border">CONTACT</h2>
+            <p>내용</p>
+          </div>
+          <div>
+            <h2 class="section-title title-border">PRO SKILLS</h2>
+            <p>내용</p>
+          </div>
+          <div>
+            <h2 class="section-title title-border">HOBBIES</h2>
+            <p>내용</p>
+          </div>
+        </aside>
+        <!-- 경력 -->
+        <section class="bg-slate-200 w-[60%] flex flex-col justify-between p-5">
+          <div>
+            <h2 class="section-title">EXPERIENCES</h2>
+            <p>내용</p>
+          </div>
+          <div>
+            <h2 class="section-title">EDUCATIONS</h2>
+            <p>내용</p>
+          </div>
+          <div>
+            <h2 class="section-title">REFERENCES</h2>
+            <div class="flex gap-8">
+              <p>내용</p>
+              <p>내용</p>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>
