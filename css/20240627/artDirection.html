@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>아트디렉션</title>
+  </head>
+  <body>
+    <!-- <picture> -->
+    <picture>
+      <source media="(min-width: 1024px)" srcset="/img/lication-chilli.png" />
+      <source media="(max-width: 1023px)" srcset="/img/lication-chilli2.png" />
+      <img src="lication-chilli.png" alt="위니브 리케이션 속 칠리" />
+    </picture>
+
+    <!--<source>  -->
+    <picture>
+      <source srcset="photo.avif" type="image/avif" />
+      <source srcset="photo.webp" type="image/webp" />
+      <img src="photo.jpg" alt="photo" />
+    </picture>
+
+    <picture>
+      <source type="image/svg+xml" srcset="pyramid.svg" />
+      <source type="image/webp" srcset="pyramid.webp" />
+      <img src="pyramid.png" alt="정삼각형 4개로 만든 일반적인 피라미드" />
+    </picture>
+  </body>
+</html>
