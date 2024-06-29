@@ -15,7 +15,7 @@
 
       :root {
         /* color */
-        --hamster-body: #eb91a5;
+        --pink: pink;
         --stroke: black;
       }
 
@@ -60,14 +60,34 @@
         }
       }
 
+      @keyframes wobbly {
+        0% {
+          transform: skew(0deg, 0deg);
+        }
+        25% {
+          transform: skew(3deg, 0deg);
+        }
+        50% {
+          transform: skew(-3deg, 0deg);
+        }
+        75% {
+          transform: skew(0deg, 3deg);
+        }
+        100% {
+          transform: skew(0deg, -3deg);
+        }
+      }
+
       .container {
         background-color: #fdffcc;
-        margin: 100px auto;
+        margin: 150px auto;
         padding-top: 50px;
         width: 350px;
         height: 350px;
         border-radius: 100%;
+        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
       }
+
       /* 하트 */
       .heart-wrapper {
         display: flex;
@@ -78,7 +98,7 @@
       .heart {
         width: 25px;
         height: 25px;
-        background-color: pink;
+        background-color: var(--pink);
         animation: heartbeat 1s infinite;
       }
       .heart::before,
@@ -86,7 +106,7 @@
         content: "";
         width: 25px;
         height: 25px;
-        background-color: pink;
+        background-color: var(--pink);
         position: absolute;
         border-radius: 50%;
       }
@@ -98,19 +118,22 @@
         top: 0px;
         left: 15px;
       }
-      /* 해피 */
+
+      /* 해피 글자 */
       .text {
         font-size: 36px;
         text-align: center;
         color: white;
-        -webkit-text-stroke: 2px black;
+        -webkit-text-stroke: 1.5px var(--stroke);
         transform: translateY(10px);
+        animation: wobbly 2s infinite alternate;
       }
+
       /* 햄스터 */
       .hamster {
         animation: bounce 1s infinite alternate;
       }
-      /* 햄스터 머리 */
+      /* 머리 */
       .head {
         text-align: center;
         animation: bounce 1s infinite linear;
@@ -118,7 +141,6 @@
       .hair {
         animation: head-bounce 1s infinite linear;
       }
-
       .face {
         position: absolute;
         top: 60%;
@@ -143,10 +165,22 @@
         filter: blur(5px);
       }
 
+      .inner-wrapper {
+        display: flex;
+      }
+
+      .cheek-inner {
+        background-color: var(--stroke);
+        width: 1.5px;
+        height: 6px;
+        margin: 10px 3px;
+        transform: rotate(40deg);
+      }
+
       .body {
         width: 150px;
         height: 50px;
-        background-color: pink;
+        background-color: var(--pink);
         border-left: 3px solid var(--stroke);
         border-right: 3px solid var(--stroke);
         position: absolute;
@@ -180,8 +214,18 @@
             <img src="/img/hamster/face.svg" alt="" />
           </div>
           <div class="cheek-wrapper">
-            <div class="cheek"></div>
-            <div class="cheek"></div>
+            <div class="cheek left"></div>
+            <div class="cheek right"></div>
+          </div>
+          <div class="cheek-wrapper">
+            <div class="inner-wrapper">
+              <div class="cheek-inner"></div>
+              <div class="cheek-inner"></div>
+            </div>
+            <div class="inner-wrapper">
+              <div class="cheek-inner"></div>
+              <div class="cheek-inner"></div>
+            </div>
           </div>
         </div>
         <div class="body">
