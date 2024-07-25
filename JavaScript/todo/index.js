@@ -4,14 +4,18 @@ const $button = document.querySelector("button");
 const $ul = document.querySelector("ul");
 const $form = document.querySelector("form");
 
+const createTodoUi = (todoData) => {
+  const $li = document.createElement("li");
+  $li.textContent = todoData.todo;
+  $ul.appendChild($li);
+};
+
 /* 서버에서 Todo 목록을 가져오는 비동기 함수 */
 const fetchTodos = async function () {
   const res = await fetch("http://localhost:3000/todos"); //주소로 GET 요청을 보내고, 응답을 res 변수에 저장
   const json = await res.json(); //JSON 형식으로 파싱된 데이터를 json 변수에 저장
-  json.forEach((item) => {
-    const $li = document.createElement("li");
-    $li.textContent = item.todo;
-    $ul.appendChild($li);
+  json.forEach((todoData) => {
+    createTodoUi(todoData);
   });
   //각 Todo 항목마다 새로운 <li> 요소를 생성하고, 해당 요소에 Todo 내용(item.todo)을 추가한 후 $ul 요소에 추가
 };
@@ -30,9 +34,7 @@ const addTodo = async function (todoTxt) {
     //주소로 POST 요청을 보내고, Todo 데이터를 JSON 형식으로 전송
 
     const newPost = await req.json();
-    const $li = document.createElement("li");
-    $li.textContent = newPost.todo;
-    $ul.appendChild($li);
+    createTodoUi(newTodoData);
     //성공적으로 Todo가 추가되면 서버에서 반환한 응답을 newPost 변수에 저장하고,
     //이를 기반으로 새로운 <li> 요소를 생성하여 $ul 요소에 추가
   } catch (error) {
