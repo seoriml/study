@@ -1,58 +1,178 @@
-/* HTML 요소 선택 및 변수 할당 */
+const url = "http://localhost:3000/todos";
+
+/* DOM 요소 선택 */
 const $input = document.querySelector("input");
 const $button = document.querySelector("button");
 const $ul = document.querySelector("ul");
 const $form = document.querySelector("form");
 
+/* Todo 항목 생성 */
 const createTodoUi = (todoData) => {
+  //li 요소 생성 및 ID 설정
   const $li = document.createElement("li");
-  $li.textContent = todoData.todo;
+  $li.id = todoData.id;
+
+  //todo 내용을 표시하는 span 요소 생성
+  const $todoText = document.createElement("span");
+  $todoText.textContent = todoData.todo;
+
+  //삭제하기 버튼 생성
+  const $delButton = document.createElement("button");
+  $delButton.textContent = "삭제하기";
+  $delButton.classList.add("delete-btn");
+
+  //수정하기 버튼 생성 및 이벤트 설정
+  const $editButton = document.createElement("button");
+  $editButton.textContent = "수정하기";
+  $editButton.classList.add("edit-btn");
+
+  $editButton.addEventListener("click", () => {
+    //prompt를 통해 사용자에게 수정할 내용을 입력받음
+    const editTodoText = prompt(
+      "수정할 todo내용을 입력해주세요:",
+      todoData.todo
+    );
+    //사용자가 입력한 값이 존재하고 공백 제거 후 최소 글자 수보다 길 경우, 수정 요청을 서버로 보냄
+    const minTextLength = 1;
+    if (editTodoText && editTodoText.trim().length >= minTextLength) {
+      //서버에 PATCH 요청으로 전송하여 Todo 항목을 수정하고 화면에 반영
+      fetch(url + "/" + todoData.id, {
+        method: "PATCH", // PUT:내용을 아예 갈아끼울때, PATCH:일부만 수정할때,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          todo: editTodoText,
+        }),
+      })
+        //JSON 형식의 데이터가 포함된 Promise를 반환
+        .then((res) => {
+          return res.json();
+        })
+        //JSON 형식으로 파싱된 데이터(editedTodoData)를 받아와서 실제 Todo 항목의 내용을 화면에 업데이트
+        .then((editedTodoData) => {
+          $todoText.textContent = editedTodoData.todo;
+        })
+        .catch((err) => {
+          console.error(err);
+          alert("전송에 실패했습니다.");
+        });
+    } //사용자가 취소 버튼을 눌렀을경우
+    else if (editTodoText === null) {
+      alert("수정이 취소 되었습니다.");
+    } //길이가 충족되지 않을 경우
+    else {
+      alert(minTextLength + "글자 이상 입력해야합니다.");
+    }
+  });
+
+  /* 체크박스 생성 및 초기 상태 설정 */
+  const $checkBox = document.createElement("input");
+  $checkBox.setAttribute("type", "checkbox");
+  $checkBox.classList.add("edit-checkbox");
+  $checkBox.checked = todoData.done;
+
+  // 각 요소 추가
   $ul.appendChild($li);
+  $li.appendChild($todoText);
+  $li.appendChild($delButton);
+  $li.appendChild($editButton);
+  $li.appendChild($checkBox);
 };
 
-/* 서버에서 Todo 목록을 가져오는 비동기 함수 */
-const fetchTodos = async function () {
-  const res = await fetch("http://localhost:3000/todos"); //주소로 GET 요청을 보내고, 응답을 res 변수에 저장
-  const json = await res.json(); //JSON 형식으로 파싱된 데이터를 json 변수에 저장
-  json.forEach((todoData) => {
+const getTodos = async () => {
+  const res = await fetch(url);
+  const todoDatas = await res.json();
+  return todoDatas;
+};
+
+/* 최초에 화면에 todo를 그려주는 함수 */
+const initTodo = async function () {
+  const todoDatas = await getTodos();
+  todoDatas.forEach((todoData) => {
     createTodoUi(todoData);
   });
-  //각 Todo 항목마다 새로운 <li> 요소를 생성하고, 해당 요소에 Todo 내용(item.todo)을 추가한 후 $ul 요소에 추가
 };
-fetchTodos();
+initTodo();
 
-/* 사용자가 입력한 Todo 내용을 받아서 서버에 POST 요청을 보내고, 새로운 Todo를 추가하는 비동기 함수 */
+/* Todo 추가 함수 */
 const addTodo = async function (todoTxt) {
   try {
-    const req = await fetch("http://localhost:3000/todos", {
+    const req = await fetch(url, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ todo: todoTxt, done: false }),
     });
-    //주소로 POST 요청을 보내고, Todo 데이터를 JSON 형식으로 전송
-
-    const newPost = await req.json();
-    createTodoUi(newTodoData);
-    //성공적으로 Todo가 추가되면 서버에서 반환한 응답을 newPost 변수에 저장하고,
-    //이를 기반으로 새로운 <li> 요소를 생성하여 $ul 요소에 추가
+    const newTodoData = await req.json();
+    return newTodoData;
   } catch (error) {
-    alert("서버에 이상이 있음");
-    //오류가 발생하면 catch 블록에서 오류 메시지를 콘솔에 출력하고 사용자에게 경고창을 표시
+    alert("서버에 이상이 있습니다.");
   } finally {
-    console.log("성공 또는 실패에 관계없이 항상 실행");
-    //finally 블록은 성공 또는 실패에 관계없이 항상 실행
+    console.log("실패 성공 상관없이 무조건 실행");
   }
 };
 
-/* $form 요소에 submit 이벤트 리스너를 등록 */
 $form.addEventListener("submit", async function (e) {
-  //폼이 제출되면(submit 이벤트 발생 시)
-  e.preventDefault(); //기본 동작을 막고
-  const todoTxt = $input.value; //입력 필드($input)에 입력된 값을 가져와
-  await addTodo(todoTxt); //addTodo 함수를 호출
-  $input.value = ""; //사용자가 폼을 제출한 후에 입력 필드를 비우기
+  e.preventDefault();
+  const todoTxt = $input.value;
+  const newTodoData = await addTodo(todoTxt);
+  createTodoUi(newTodoData);
+  $input.value = "";
 });
 
-// TODO:: 완료하기 기능이랑 todo삭제하기 기능해야됩니다.
+/* Todo 삭제 함수 */
+const deleteTodo = async (id) => {
+  try {
+    const res = await fetch(`${url}/${id}`, {
+      method: "DELETE",
+    });
+    return res.status === 200;
+  } catch (error) {
+    //예외처리 하면 좋음
+  }
+};
+
+/* Todo 삭제와 수정을 위한 이벤트 리스너를 추가 */
+$ul.addEventListener("click", async (e) => {
+  if ([...e.target.classList].includes("delete-btn")) {
+    const parentNode = e.target.parentNode;
+    const isDelete = await deleteTodo(parentNode.id);
+    if (isDelete) {
+      parentNode.remove();
+    } else {
+      alert("잘못된 요청입니다.");
+    }
+  }
+  if ([...e.target.classList].includes("edit-checkbox")) {
+    //이벤트가 발생한 요소의 클래스 리스트에 "edit-checkbox" 클래스가 포함되어 있는지 확인
+    const todoId = e.target.parentNode.id;
+    //체크박스의 부모 요소인 <li>의 id를 가져와서 todoId 변수에 저장
+    const checked = e.target.checked;
+    //체크박스의 체크 여부를 확인하여 checked 변수에 저장
+    const editedTodo = await editStatus(todoId, checked);
+    //editStatus 함수를 호출하여 Todo 항목의 완료 상태를 서버에 업데이트
+    if (typeof editedTodo.done === "boolean") {
+      return;
+    }
+    e.target.checked = editedTodo.done;
+  }
+});
+
+/* 체크박스 상태 변경 함수 */
+const editStatus = async function (id, checked) {
+  try {
+    const res = await fetch(`${url}/${id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        done: checked,
+      }),
+    });
+    const editedTodo = await res.json();
+    return editedTodo;
+  } catch (error) {}
+};
