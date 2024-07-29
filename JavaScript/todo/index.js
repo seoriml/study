@@ -1,5 +1,6 @@
 const url = "http://localhost:3000/todos";
 console.log(1);
+console.log(1);
 
 /* DOM 요소 선택 */
 const $input = document.querySelector("input");
