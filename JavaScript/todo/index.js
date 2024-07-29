@@ -25,7 +25,7 @@ const createTodoUi = (todoData) => {
   const $editButton = document.createElement("button");
   $editButton.textContent = "수정하기";
   $editButton.classList.add("edit-btn");
-
+  console.log(10);
   $editButton.addEventListener("click", () => {
     //prompt를 통해 사용자에게 수정할 내용을 입력받음
     const editTodoText = prompt(
