@@ -1,16 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
+import ButtonList from "./ButtonList";
+import Display from "./Display";
+import "./App.css";
 
-const ColorText = ({ color }) => {
-  return <p style={{ color: color }}>색이 바뀌어요</p>;
-};
-
-// App 컴포넌트 정의
 function App() {
+  const [mood, setMood] = useState("");
+
   return (
-    <div>
-      <ColorText color="red" />
-      <ColorText color="green" />
-      <ColorText color="blue" />
+    <div style={{ textAlign: "center", marginTop: "50px" }}>
+      <h1>오늘의 기분을 선택해주세요</h1>
+      <ButtonList setMood={setMood} />
+      <Display mood={mood} />
     </div>
   );
 }
