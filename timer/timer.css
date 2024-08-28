@@ -1,0 +1,80 @@
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+.timer {
+  text-align: center;
+}
+
+.inputs input {
+  width: 60px;
+  font-size: 2rem;
+  text-align: center;
+  margin: 5px;
+  padding: 10px;
+  border: 2px solid #000;
+}
+
+.labels {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.labels span {
+  width: 60px;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.buttons {
+  margin-top: 10px;
+}
+
+button {
+  margin: 5px;
+  font-size: 1rem;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+button:hover {
+}
+
+button:disabled {
+  background-color: #6c757d;
+  cursor: not-allowed;
+}
+
+.icon-button {
+  position: relative;
+  width: 60px;
+  height: 60px;
+}
+
+.icon-button .icon {
+  position: absolute;
+  font-size: 2rem;
+}
+
+.play-button .icon {
+  content: "▶"; 
+}
+
+.pause-button .icon {
+  content: "⏸";
+}
+
+.reset-button .icon {
+  content: "⏹";
+}

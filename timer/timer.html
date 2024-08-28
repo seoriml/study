@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>타이머</title>
+    <link rel="stylesheet" href="timer.css" />
+  </head>
+  <body>
+    <section class="timer">
+      <h1>TIMER</h1>
+      <div class="labels">
+        <span>HRS</span>
+        <span>MIN</span>
+        <span>SEC</span>
+      </div>
+      <div class="inputs">
+        <input type="number" id="hours" placeholder="00" min="0" />
+        <input type="number" id="minutes" placeholder="00" min="0" />
+        <input type="number" id="seconds" placeholder="00" min="0" />
+      </div>
+      <div class="buttons">
+        <button id="start" class="icon-button play-button">Start</button>
+        <button id="reset" class="icon-button reset-button">Reset</button>
+      </div>
+    </section>
+    <script src="timer.js"></script>
+  </body>
+</html>
