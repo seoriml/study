@@ -20,7 +20,8 @@ function updateDisplay() {
     hoursInput.value = "00";
     minutesInput.value = "00";
     secondsInput.value = "00";
-    startButton.textContent = "Start";
+    startButton.textContent = "START";
+    startButton.classList.remove("pause");
     alert("Finish");
     return;
   }
@@ -36,15 +37,17 @@ function updateDisplay() {
 }
 
 startButton.addEventListener("click", () => {
-  if (startButton.textContent === "Start") {
+  if (startButton.textContent === "START") {
     updateInputs();
     if (totalTime > 0) {
       timer = setInterval(updateDisplay, 1000);
-      startButton.textContent = "Pause";
+      startButton.textContent = "PAUSE";
+      startButton.classList.add("pause");
     }
   } else {
     clearInterval(timer);
-    startButton.textContent = "Start";
+    startButton.textContent = "START";
+    startButton.classList.remove("pause");
   }
 });
 
@@ -54,5 +57,6 @@ resetButton.addEventListener("click", () => {
   hoursInput.value = "00";
   minutesInput.value = "00";
   secondsInput.value = "00";
-  startButton.textContent = "Start";
+  startButton.textContent = "START";
+  startButton.classList.remove("pause");
 });
