@@ -2,6 +2,7 @@
 
 // type 키워드를 사용한 type alias
 type Todo = {
+  id: number;
   key: string;
   todo: string;
   caption?: string; // 선택적 속성
