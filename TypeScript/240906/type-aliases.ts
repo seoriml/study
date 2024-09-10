@@ -1,17 +1,17 @@
 // type-aliases.ts
 
 // type 키워드를 사용한 type alias
-type Todo = {
+type Task = {
   id: number;
   key: string;
   todo: string;
   caption?: string; // 선택적 속성
 };
 
-let todoData: Todo;
+let taskData: Task;
 
 // 인터섹션 타입
-type Person = {
+type human = {
   name: string;
   age: number;
 };
@@ -26,4 +26,4 @@ type ReadOnlyPerson = {
   readonly age: number;
 };
 
-let person: ReadOnlyPerson = { name: "John", age: 30 };
+let human: ReadOnlyPerson = { name: "John", age: 30 };
