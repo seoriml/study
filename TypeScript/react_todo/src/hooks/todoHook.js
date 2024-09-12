@@ -1,36 +1,38 @@
 import { useEffect, useState } from "react";
-import TodoView from "./TodoView";
 
-const Todo = () => {
+function useTodoData() {
+  const [isLoading, setIsLoading] = useState(false);
   const [todoList, setTodoList] = useState([]);
-  const [todoText, setTodoText] = useState("");
+
   useEffect(() => {
+    setIsLoading(true);
     fetch("http://localhost:3300/todos")
       .then((res) => {
         return res.json();
       })
       .then((todoData) => {
+        setIsLoading(false);
         setTodoList(todoData);
       });
   }, []);
+  const postTodo = (todoText) => {
+    setIsLoading(true)
+    const newTodo = {
+      todo: todoText,
+    };
 
-  const handleInput = (e) => {
-    const newTodoText = e.target.value;
-    setTodoText(newTodoText);
-  };
-
-  const handleButton = () => {
     fetch("http://localhost:3300/todos", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ todo: todoText }),
+      body: JSON.stringify(newTodo),
     })
       .then((res) => {
         return res.json();
       })
       .then((newTodo) => {
+        setIsLoading(false)
         setTodoList((prevTodoList) => {
           // prevTodoList.push()
           // 리액트에서는 props/state가 바뀌면 렌더링을한다..
@@ -40,22 +42,8 @@ const Todo = () => {
           return [...prevTodoList, newTodo];
         });
       });
-
-    // setTodoList((prevTodoList) => {
-    //   const newTodo = {
-    //     id: +todoList[todoList.length - 1].id + 1,
-    //     todo: todoText,
-    //   };
-    //   const newTodoList = [...prevTodoList, newTodo];
-    //   if (newTodoList.length > 5) {
-    //     newTodoList.shift();
-    //   }
-    //   return newTodoList;
-    // });
   };
+  return [todoList, postTodo, isLoading]
+}
 
-  const props = { todoList, handleInput, todoText, handleButton };
-  return <TodoView {...props} />;
-};
-
-export default Todo;
+export default useTodoData
