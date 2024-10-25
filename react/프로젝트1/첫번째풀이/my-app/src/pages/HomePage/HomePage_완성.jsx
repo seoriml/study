@@ -4,7 +4,7 @@ import './homePage.css'
 import ProductCard from '../../components/ProductCard/ProductCard'
 
 export default function HomePage() {
-    console.log(data)
+    // console.log(data)
 
     const [error, setError] = useState(null)
     const [isLoaded, setIsLoaded] = useState(false)
