@@ -9,3 +9,10 @@ function solution(my_string) {
     }
     return answer;  // 최종 결과 반환
 }
+
+// 예시 실행
+console.log(solution("hello world"));  // 출력: "hll wrld"
+console.log(solution("This is an example sentence."));  // 출력: "Ths s n xmpl sntnc."
+console.log(solution("aeiou"));  // 출력: ""
+console.log(solution("HELLO"));  // 출력: "HLL"
+console.log(solution("aeIoU"));  // 출력: "I"
