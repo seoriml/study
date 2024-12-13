@@ -3,3 +3,6 @@ function solution(my_string, letter) {
     var answer = my_string.replace(new RegExp(letter, 'g'), '');
     return answer;
 }
+
+// 예시 테스트: 문자열에서 특정 문자를 제거하고 결과 출력
+console.log(solution("hello world", "o")); // "hell wrld"
