@@ -10,3 +10,10 @@ function solution(s1, s2) {
     
     return answer;
 }
+
+// 예시 입력 값
+var s1 = "abc";
+var s2 = "abcdef";
+
+// 함수 실행 후 결과 출력
+console.log(solution(s1, s2));  // 3
