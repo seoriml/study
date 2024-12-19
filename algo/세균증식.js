@@ -1,5 +1,3 @@
-// solution.js
-
 /**
  * 세균의 수가 1시간마다 두 배씩 증가하는 문제
  * @param {number} n - 초기 세균의 수
@@ -8,5 +6,9 @@
  */
 function solution(n, t) {
     var answer = n * Math.pow(2, t); // 2^t만큼 증식한 세균 수 계산
+    console.log(answer);
     return answer;
 }
+
+// 예시 호출
+solution(1, 3);  // 초기 세균 수 1, 3시간 후 세균 수
