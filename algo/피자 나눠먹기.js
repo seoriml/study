@@ -14,5 +14,5 @@ function solution(slice, n) {
 
 // 테스트 케이스 예시
 console.log(solution(6, 10)); // 출력: 2 (10명이 먹을 수 있는 피자 판 수는 2)
-console.log(solution(8, 5));  // 출력: 1 (5명이 먹을 수 있는 피자 판 수는 1)
+// console.log(solution(8, 5));  // 출력: 1 (5명이 먹을 수 있는 피자 판 수는 1)
 // console.log(solution(3, 11)); // 출력: 4 (11명이 먹을 수 있는 피자 판 수는 4)
